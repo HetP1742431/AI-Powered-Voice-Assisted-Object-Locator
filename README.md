@@ -27,7 +27,7 @@
 
 ## 🧠 How It Works
 
-1. **Wake Word Detection** – Listens for the keyword “Hey AIVOL” before capturing commands
+1. **Wake Word Detection** – Listens for the keyword “Hey Assistant” before capturing commands
 2. **Voice Recognition** – Captures user’s voice query using Google Speech Recognition  
 3. **NLP Parser** – Processes the text to extract object descriptors (name, color, location) using spaCy/NLTK  
 4. **Object Detection** – Scans the environment using YOLOv5m with Objects365 dataset  
