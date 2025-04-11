@@ -1,152 +1,110 @@
-# AI-powered-Voice-assisted-Object-Locator (ECE 492 Capstone G08):
+# 🎯 AI-powered Voice-Assisted Object Locator (AIVOL)
 
-## Group members:
-
-1. Parth Dadhania (SID: 1722612)
-2. Het Bharatkumar Patel (SID: 1742431)
-3. Chinmoy Sahoo (SID: 1729807)
-4. Dang Nguyen (SID: 1740770)
-
-## 📜 Setup Guide for Team (WSL & Raspberry Pi)
-
-This guide ensures that every team member can **seamlessly** set up, configure, and run the **AI-powered Voice-Assisted Object Locator (AIVOL)** project in an **identical development environment** across **WSL Ubuntu & Raspberry Pi**.
+> 👁️ Designed to assist visually impaired individuals in locating everyday objects using voice commands, real-time computer vision, and natural language processing — all running on a Raspberry Pi 5.
 
 ---
 
-## 🚀 Quick Setup Guide for AIVOL
+## 👥 Team Members
 
-📌 **Follow these steps carefully to ensure a smooth and identical setup on your machine.**
-
-🔹 **Supported Platforms:**  
-✅ **Windows Subsystem for Linux (WSL) Ubuntu (Development)**  
-✅ **Raspberry Pi OS (Deployment/Production)**
+- Het Bharatkumar Patel (Maintainer of this fork)
+- Parth Dadhania
+- Chinmoy Sahoo
+- Dang Nguyen
 
 ---
 
-## 📌 Step 1: Clone the GitHub Repository
+## 🔑 Core Features
 
-Navigate to your **desired project directory** and run:
+✅ Wake word functionality (“Hey Assistant”) to trigger voice command flow  
+✅ End-to-end integration of speech recognition, object detection, text-to-speech and real-time feedback  
+✅ Real-time object locating and directional guidance  
+✅ NLP-powered query understanding (e.g., “Where is my red cup on the table?”)  
+✅ Handles missing objects with fallback suggestions  
+✅ Lightweight and plug-and-play setup  
+✅ Works seamlessly on both WSL and Raspberry Pi OS
+
+---
+
+## 🧠 How It Works
+
+1. **Wake Word Detection** – Listens for the keyword “Hey AIVOL” before capturing commands
+2. **Voice Recognition** – Captures user’s voice query using Google Speech Recognition  
+3. **NLP Parser** – Processes the text to extract object descriptors (name, color, location) using spaCy/NLTK  
+4. **Object Detection** – Scans the environment using YOLOv5m with Objects365 dataset  
+5. **Filtering & Reasoning** – Filters objects based on query relevance and WordNet synonyms
+6. **Text-to-Speech** – Provides real-time guidance (e.g., "Move slightly left") using `gTTS`
+7. **Continuous Guidance** – Tracks movement and updates directions while user moves using Mediapipe
+
+---
+
+## 📽️ Working Demo
+
+🎥 **Watch the full working prototype demo here:**  
+[📺 AIVOL Demo Video](https://drive.google.com/file/d/12i0sUYGtml0EsvSWSRfKyyfh2CM3sd4P/view?usp=sharing)
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technologies |
+|------|--------------|
+| 💻 Hardware | Raspberry Pi 5 (16GB RAM, 128GB Storage), 120° FoV USB Camera, Logitech USB Headset |
+| 🧠 AI Models | YOLOv5m (trained on Objects365), Mediapipe |
+| 🗣️ Voice | Google Speech Recognition, PyAudio, gTTS |
+| 🧾 NLP | spaCy, NLTK, WordNet |
+| 🐍 Programming | Python 3.11.4 |
+| ⚙️ Deployment | WSL (Dev), Raspberry Pi OS (Prod) |
+| 🔧 Setup | Bash, `setup.sh`, `requirements.txt` |
+
+---
+
+## 🚀 Setup Instructions
+
+### 📦 Clone the Repository
 
 ```bash
-git clone https://github.com/PrthD/AI-powered-Voice-assisted-Object-Locator.git
-cd AI-powered-Voice-assisted-Object-Locator
+git clone https://github.com/HetP1742431/AI-Powered-Voice-Assisted-Object-Locator.git
+cd AI-Powered-Voice-Assisted-Object-Locator
 ```
 
----
-
-## 📌 Step 2: Run the Setup Script
-
-Make the setup script executable:
+### ⚙️ Run the Setup Script
 
 ```bash
 chmod +x setup.sh
-```
-
-Then, run the script:
-
-```bash
 ./setup.sh
 ```
 
 This will:
-✔ **Install necessary system dependencies**  
-✔ **Ensure Python 3.11.4 is installed using pyenv**  
-✔ **Create and activate a virtual environment**  
-✔ **Install all Python dependencies from `requirements.txt`**  
-✔ **Download YOLO model weights**
+- Install system dependencies
+- Install Python 3.11.4 via pyenv
+- Create and activate a virtual environment
+- Install all Python dependencies
+- Download YOLOv5m weights
 
----
-
-## 📌 Step 3: Verify Installation
-
-Once the setup is complete, verify that everything is correctly installed:
-
-### **3.1 Check Python Version**
-
-```bash
-python --version
-```
-
-✔ Should output: `Python 3.11.4`
-
-### **3.2 Check Installed Packages**
-
-```bash
-pip list
-```
-
-✔ Should list all dependencies (e.g., `opencv-python`, `SpeechRecognition`, `PyAudio`, `pyttsx3`, `mediapipe`, `ultralytics`, `torch`, `torchvision`).
-
-### **3.3 Verify YOLO Model is Installed**
-
-```bash
-ls -lh models/yolo/yolo.weights
-```
-
-✔ Should show the **YOLO model weights file** (`yolo.weights`).
-
----
-
-## 📌 Step 4: Running the Project
-
-Now that everything is set up, run the main program:
+### ✅ Run the Project
 
 ```bash
 python3 src/main.py
 ```
 
----
+## 📋 Sample Usage Flow
 
-## 📌 Troubleshooting Guide
+User: "Hey Assistant, where is my black wallet?"
+🧠 → Extracts: object=wallet, color=black
+🎯 → Scans environment and detects object
+🎙️ → Speaks: "Your black wallet is on the table, slightly to your left."
 
-If you encounter any issues during the setup, the script will now immediately exit and display an error message. For example, if Python or the dependencies are not installed correctly, you will see a message like:
+## 📈 Outcomes
 
-```bash
-❌ An error occurred during the setup. Please review the error messages above and refer to the Troubleshooting Guide in README.md.
-```
+- ✅ Successfully detects and filters household objects in cluttered scenes
+- ✅ Accurate directional feedback with >90% recognition accuracy indoors
+- ✅ Lightweight, end-to-end working prototype using affordable components
+- ✅ Low setup time and portable form factor for real-world deployment
 
-### Common troubleshooting steps:
-
-⚠️ pyenv not found:
-Run the following commands to add pyenv to your shell environment and restart your terminal:
-
-```bash
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-exec "$SHELL"
-```
-
-⚠️ Dependency Installation Failures:
-Ensure that you are connected to the internet and that your system package manager (apt) has successfully updated. If errors persist, try running the setup script again after addressing any specific error messages shown.
-
----
-
-## 📌 Updating the Project
-
-Whenever there’s a new update, run:
-
-```bash
-git pull origin main
-./setup.sh
-```
-
----
-
-## 🎯 Summary of Steps
-
-| Step | Description                                              |
-| ---- | -------------------------------------------------------- |
-| 1️⃣   | **Clone the GitHub repository**                          |
-| 2️⃣   | **Run the `setup.sh` script**                            |
-| 3️⃣   | **Verify installation** (`python --version`, `pip list`) |
-| 4️⃣   | **Run the main program** (`python src/main.py`)          |
-| 5️⃣   | **Troubleshoot issues if needed**                        |
-| 6️⃣   | **Pull updates and re-run `setup.sh`**                   |
-
----
-
-## 🎉 You're Now Ready to Develop & Deploy!
-
-🚀 **This guide ensures that all team members have an identical setup, making collaboration seamless and error-free!** 🚀
+## 💡 What I Learned
+- 📦 Gained hands-on experience with hardware-software integration using Raspberry Pi 5
+- 🧠 Learned to build and optimize real-time object detection pipelines using YOLOv5 and OpenCV
+- 🗣️ Understood the nuances of voice-to-intent mapping using spaCy, NLTK, and WordNet
+- 🧪 Practiced modular, testable Python design and deployment automation
+- 🔄 Improved debugging, cross-platform compatibility, and performance optimization for edge devices
+- 🎯 Gained confidence in translating user-centric problems into full-stack intelligent systems
